@@ -22,6 +22,7 @@ public void verifyLogOut() throws IOException	 {
 	password.sendKeys(passwordValue);
 	WebElement login = driver.findElement(By.xpath("//button[@type='submit']"));
 	login.click();
+
 	WebElement adminIcon = driver.findElement(By.xpath("//img[@src='https://groceryapp.uniqassosiates.com/public/assets/admin/dist/img/avatar5.png']"));
 	adminIcon.click();
 	WebElement logOut = driver.findElement(By.xpath("//i[@class='ace-icon fa fa-power-off']"));
