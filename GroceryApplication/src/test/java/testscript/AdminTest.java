@@ -1,52 +1,36 @@
 package testscript;
-
 import java.io.IOException;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-
+import Pages.AdminPage;
+import Pages.LoginPage;
 import base.TestNgBase;
+import constant.Constants;
 import utilities.ExcelUtility;
 import utilities.FakerUtility;
 
-public class AdminTest extends TestNgBase {
-	@Test
+public class AdminTest extends TestNgBase{
+	@Test(description="AddUser functionality")
 	public void verifyAddUser() throws IOException {
-		//to login
-		String usernameValue=ExcelUtility.getStringData(1, 0, "LoginPage");
-		String passwordValue=ExcelUtility.getStringData(1, 1, "LoginPage");
-		WebElement username = driver.findElement(By.xpath("//input[@name='username']"));	
-		username.sendKeys(usernameValue);
-		WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
-		password.sendKeys(passwordValue);
-		WebElement login = driver.findElement(By.xpath("//button[@type='submit']"));
-		login.click();
-		//to click more info
-		WebElement adminMoreInfo = driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']"));
-		adminMoreInfo.click();
-		//to generate random username and password
+		String usernameValue=ExcelUtility.getStringData(1, 0, Constants.LOGINSHEET);
+		String passwordValue=ExcelUtility.getStringData(1, 1,Constants.LOGINSHEET);
+		LoginPage loginpage=new LoginPage(driver);
+		loginpage.enterusername(usernameValue);
+		loginpage.enterpassword(passwordValue);
+		loginpage.clickOnSignin();
+		AdminPage adminpage=new AdminPage(driver);
+		adminpage.clickAdminMoreifo();
 		FakerUtility fakerUtility = new FakerUtility();
 		String randomname=fakerUtility.createRandomUserName();
 		String randompassword=fakerUtility.createRandomPassword();
-		String randomuserType=ExcelUtility.getStringData(1, 2,"HomePage");
-		
-		WebElement newButton = driver.findElement(By.xpath("//a[@class-'btn btn-rounded btn-danger']"));
-		newButton.click();
-		WebElement usernamefield = driver.findElement(By.xpath("//input[@name='username']"));	
-		usernamefield.sendKeys(randomname);
-		WebElement passwordfield = driver.findElement(By.xpath("//input[@id='password']"));	
-		passwordfield.sendKeys(randompassword);
-		WebElement userTypefield = driver.findElement(By.xpath("//select[@id='user_type']"));	
-		Select select = new Select(userTypefield);
-		select.selectByVisibleText(randomuserType);
-		
-
-		}
-	
-	
-	
+		String userType=ExcelUtility.getStringData(1, 2,Constants.HOMESHEET);
+		adminpage.clickNewButton();
+		adminpage.enterUsername(randomname);
+		adminpage.enterPassword(randompassword);
+		adminpage.selectUserTypedropdwon(userType);
+		adminpage.clickSaveButtob();
+		boolean isDisplayed=adminpage.isAlertDisplayed();
+		Assert.assertTrue(isDisplayed,"user is not added susccessfully");
 	}
 
-
+}
