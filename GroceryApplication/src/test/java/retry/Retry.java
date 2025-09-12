@@ -11,7 +11,7 @@ public class Retry implements IRetryAnalyzer {
 	private static final int maxTry = 2;// no of try for flaky testcases =2
 	private int count = 0;
 
-	@Override
+	@Override// retry method is predefined in retryanalyzer
 	public boolean retry(final ITestResult iTestResult) {
 		if (!iTestResult.isSuccess()) {
 			if (this.count < maxTry) {
