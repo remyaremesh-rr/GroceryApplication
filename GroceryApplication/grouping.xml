@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite">
+<suite name="Grouping">
 
 <!-- for report gen when the test cases are executed-->
 <listeners>
@@ -9,6 +9,11 @@
  </listeners>
  
   <test thread-count="5" name="Test">
+  <groups>
+  	<run>
+  		<include name="smoke"></include>
+  	</run>
+  </groups>
   <!--  first time running browser=chrome-->
   <parameter name="browser" value="chrome"></parameter>
   <classes>

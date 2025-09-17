@@ -6,9 +6,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import utilities.PageUtility;
+import utilities.WaitUtility;
+
 
 public class AdminPage {
 	public WebDriver driver;
+	PageUtility pageutility = new PageUtility();
+	WaitUtility waitutility = new WaitUtility();
 	
    public AdminPage(WebDriver driver) {
 	  this.driver=driver; 
