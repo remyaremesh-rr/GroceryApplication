@@ -5,7 +5,6 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,14 +13,12 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
-
 import constant.Constants;
 import utilities.ScreenshotUtility;
 
 public class TestNgBase {
-	Properties prop;
-	FileInputStream f;
-		
+	Properties prop; // defining object  for Properties class
+	FileInputStream f;	// defining object  for FileInputStream class,to read a file
 	public WebDriver driver;
 		@BeforeMethod(alwaysRun = true)
 		@Parameters("browser") // this is name="browser" from testng.xml
@@ -29,8 +26,9 @@ public class TestNgBase {
 		public void browserInitializer(String browser) throws Exception // String browser= can be any variable name
 		{ 	
 			prop = new Properties();
-			f= new FileInputStream(Constants.CONFIGFILE);
-			prop.load(f);
+			f= new FileInputStream(Constants.CONFIGFILE); //to get the the paths from Constant class
+			prop.load(f);// retrieving the config.properties file
+			
 		   if(browser.equalsIgnoreCase("Chrome"))
 		   {
 			//ChromeOptions` allows you to customize how Chrome starts — such as setting preferences, enabling headless mode, disabling extensions, etc.
@@ -41,17 +39,19 @@ public class TestNgBase {
 			//Set the above pref as "Experimental option" so that it is reflected in user preferences
 			options.setExperimentalOption("prefs", prefs);
 			//Launch the driver with customized preference with "options"
+			
 			driver=new ChromeDriver(options);
 			}
 			else if(browser.equalsIgnoreCase("Firefox")) 
 			{
 				driver=new FirefoxDriver();
 			}
-	    else 
+	        else 
 	        {
 				throw new Exception("Invalid browser name");
 			}
-		   driver.get(prop.getProperty("url"));
+//		driver.get("https://groceryapp.uniqassosiates.com/admin/login"); 
+		driver.get(prop.getProperty("url"));// retrieving the login url from config.properties file in main/resource
 	  	driver.manage().window().maximize(); 
 	  	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 	  	}
@@ -74,7 +74,5 @@ public class TestNgBase {
 		driver.quit();
 
 	}
-
-
 
 }

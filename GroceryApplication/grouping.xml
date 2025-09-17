@@ -4,31 +4,23 @@
 
 <!-- for report gen when the test cases are executed-->
 <listeners>
- <listener class-name="reportgeneration.Listener">
+ <listener class-name="reportGeneration.Listener">
   </listener>
  </listeners>
- 
+<parameter name="browser" value="chrome"></parameter>
+
   <test thread-count="5" name="Test">
-  <groups>
+   <groups>
   	<run>
-  		<include name="smoke"></include>
+  		<include name="smoke"></include> <!-- type of testing need to do smoke/sanity/regression-->
   	</run>
-  </groups>
-  <!--  first time running browser=chrome-->
-  <parameter name="browser" value="chrome"></parameter>
-  <classes>
-<!--  short cut to comment cntl+shift+/ -->
+    </groups>
+   <classes>
    <!-- <class name="testscript.HomeTest"/>
    <class name="testscript.ManageNewsTest"/>-->
    <!--  <class name="testscript.AdminTest"/>-->
-   <!-- <class name="testscript.LoginTest"/>-->
-   <!--this is to run a single method/test present in the logintest class-->
-      <class name="testscript.LoginTest">
-      <methods> 
-      <include name="verifyLoginWithInvalidUsernameInvalidpassword"></include>
-<!--to exclude one test menthod to run in testNG ,  <exclude name=""></exclude>-->      
-      </methods>
-      </class>
+   <class name="testscript.LoginTest">
+   </class> 
     </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
+  </test> 
+</suite> 

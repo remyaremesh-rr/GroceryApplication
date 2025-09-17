@@ -1,95 +1,75 @@
 package testscript;
-
 import java.io.IOException;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import base.TestNgBase;
+import constant.Constants;
+import constant.Messages;
+import pages.HomePage;
+import pages.LoginPage;
+import pages.ManageNewsPage;
 import utilities.ExcelUtility;
 
-public class ManageNewsTest extends TestNgBase {
-	@Test
+public class ManageNewsTest extends TestNgBase{
+	HomePage homepage;
+	ManageNewsPage mangenewspage;
+	
+	@Test(description = "verify Add News")
 	
 	public void verifyAddNews() throws IOException {
-		String usernameValue=ExcelUtility.getStringData(6, 0, "LoginPage");
-		String passwordValue=ExcelUtility.getStringData(6, 1, "LoginPage");
-		WebElement username = driver.findElement(By.xpath("//input[@name='username']"));	
-		username.sendKeys(usernameValue);
-		WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
-		password.sendKeys(passwordValue);
-		WebElement login = driver.findElement(By.xpath("//button[@type='submit']"));
-		login.click();
-		
-	WebElement managenewstile = driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news'and @class='small-box-footer']"));
-	managenewstile.click();
-	WebElement newbutton = driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-danger']"));
-	newbutton.click();
-	WebElement newtextbox = driver.findElement(By.xpath("//textarea[@id='news']"));
-	newtextbox.sendKeys("Sample news");
-	WebElement savebutton = driver.findElement(By.xpath("//button[@name='create']"));
-	savebutton.click();
+		 String usernameValue=ExcelUtility.getStringData(1, 0,  Constants.LOGINSHEET);
+		 String passwordValue=ExcelUtility.getStringData(1, 1,  Constants.LOGINSHEET);		
+		 LoginPage loginpage=new LoginPage(driver);
+		 loginpage.enterUserName(usernameValue).enterPassword(passwordValue);
+		 homepage=loginpage.clickOnSignin();		
+		 mangenewspage=homepage.clickManageNewsTile();
+		 mangenewspage.clickNewButton().clickAddNewsInput().clickAddNewsSavebtn();
+		 boolean isadduseralertdisplayed = mangenewspage.isaddNewsAlertDisplayed();
+		 Assert.assertTrue(isadduseralertdisplayed,Messages.ADDUSERALERTDISPLAYEDERROR);
 	
 	}
 	
-	@Test
-	public void verifyReturnToHome() throws IOException {
-		String usernameValue=ExcelUtility.getStringData(6, 0, "LoginPage");
-		String passwordValue=ExcelUtility.getStringData(6, 1, "LoginPage");
-		WebElement username = driver.findElement(By.xpath("//input[@name='username']"));	
-		username.sendKeys(usernameValue);
-		WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
-		password.sendKeys(passwordValue);
-		WebElement login = driver.findElement(By.xpath("//button[@type='submit']"));
-		login.click();
-		
-	WebElement managenewstile = driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news'and @class='small-box-footer']"));
-	managenewstile.click();
-	WebElement home = driver.findElement(By.xpath("//a[text()='Home']"));
-	home.click();
-			
+	@Test(description = "verify Home Button")
+	public void verifyHome() throws IOException {
+		 String usernameValue=ExcelUtility.getStringData(1, 0,  Constants.LOGINSHEET);
+		 String passwordValue=ExcelUtility.getStringData(1, 1,  Constants.LOGINSHEET);		
+		 LoginPage loginpage=new LoginPage(driver);
+		 loginpage.enterUserName(usernameValue).enterPassword(passwordValue);
+		 homepage= loginpage.clickOnSignin();
+		 mangenewspage= homepage.clickManageNewsTile();
+		 homepage= mangenewspage.clickhomebtn();	
+		 String actual=driver.getCurrentUrl();
+		 String expected="https://groceryapp.uniqassosiates.com/admin/home";
+		 Assert.assertEquals(actual, expected,Messages.NAVIGATETOHOMEPAGEERROR);
 	}
-	@Test
-	public void verifysearchnews() throws IOException {
-		String usernameValue=ExcelUtility.getStringData(6, 0, "LoginPage");
-		String passwordValue=ExcelUtility.getStringData(6, 1, "LoginPage");
-		WebElement username = driver.findElement(By.xpath("//input[@name='username']"));	
-		username.sendKeys(usernameValue);
-		WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
-		password.sendKeys(passwordValue);
-		WebElement login = driver.findElement(By.xpath("//button[@type='submit']"));
-		login.click();
-		
-	WebElement managenewstile = driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news'and @class='small-box-footer']"));
-	managenewstile.click();
-	WebElement search = driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-primary']"));
-	search.click();
-	WebElement title = driver.findElement(By.xpath("//input[@class='form-control']"));
-	title.sendKeys("Sample News");
-	WebElement searchnews = driver.findElement(By.xpath("//button[@class='btn btn-danger btn-fix']"));
-	searchnews.click();
 	
+	@Test(description = "Verify Search button in Search()")
+	public void verifySearchAndSearch() throws IOException
+	  {
+		String usernameValue=ExcelUtility.getStringData(1, 0,  Constants.LOGINSHEET);
+		String passwordValue=ExcelUtility.getStringData(1, 1,  Constants.LOGINSHEET);	
+		LoginPage loginpage=new LoginPage(driver);
+		loginpage.enterUserName(usernameValue).enterPassword(passwordValue);
+		homepage=loginpage.clickOnSignin();
+		mangenewspage=homepage.clickManageNewsTile();
+		mangenewspage.clickSearchButton().enterNewsTitlteInputBox().clickSearchbtnInSeach();
+		String actualnewssearched=mangenewspage.isSearchedNewsListedIntable();
+		String expectednews="sample news";
+		Assert.assertEquals(actualnewssearched,expectednews,Messages.SEARCHEDNEWSNOTFOUNDERROR);
+		}
 	
+	@Test(description= "Verify Reset button in Search")
+	
+	public void verifySearchAndReset() throws IOException {
+		String usernameValue=ExcelUtility.getStringData(1, 0, Constants.LOGINSHEET);
+		String passwordValue=ExcelUtility.getStringData(1, 1,  Constants.LOGINSHEET);		
+		LoginPage loginpage=new LoginPage(driver);
+		loginpage.enterUserName(usernameValue).enterPassword(passwordValue);
+		homepage=loginpage.clickOnSignin();
+		mangenewspage=homepage.clickManageNewsTile();
+		mangenewspage.clickSearchButton().enterNewsTitlteInputBox().clickResetInSearch();
+		boolean issearchandmangenewscarddispalyed=mangenewspage.isSearchAndMangeNewsCarddisplayed();
+		Assert.assertFalse(issearchandmangenewscarddispalyed,Messages.RESETERROR);
 	}
-	@Test
-	public void verifysearchreset() throws IOException {
-		String usernameValue=ExcelUtility.getStringData(6, 0, "LoginPage");
-		String passwordValue=ExcelUtility.getStringData(6, 1, "LoginPage");
-		WebElement username = driver.findElement(By.xpath("//input[@name='username']"));	
-		username.sendKeys(usernameValue);
-		WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
-		password.sendKeys(passwordValue);
-		WebElement login = driver.findElement(By.xpath("//button[@type='submit']"));
-		login.click();
-		
-	WebElement managenewstile = driver.findElement(By.xpath("//a[@href='https://groceryapp.uniqassosiates.com/admin/list-news'and @class='small-box-footer']"));
-	managenewstile.click();
-	WebElement search = driver.findElement(By.xpath("//a[@class='btn btn-rounded btn-primary']"));
-	search.click();
-	WebElement title = driver.findElement(By.xpath("//input[@class='form-control']"));
-	title.sendKeys("Sample News");
-	WebElement reset = driver.findElement(By.xpath("//a[@class='btn btn-default btn-fix']"));
-	reset.click();
-	
-}
+
 }

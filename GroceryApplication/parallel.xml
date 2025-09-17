@@ -4,7 +4,7 @@
 
 <!-- for report gen when the test cases are executed-->
 <listeners>
- <listener class-name="reportgeneration.Listener">
+ <listener class-name="reportGeneration.Listener">
   </listener>
  </listeners>
  <parameter name="browser" value="chrome"></parameter> <!-- as the browser is same,make the parameter tag commeon for both the test tag-->

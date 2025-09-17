@@ -4,7 +4,7 @@
 
 <!-- for report gen when the test cases are executed-->
 <listeners>
- <listener class-name="reportgeneration.Listener">
+ <listener class-name="reportGeneration.Listener">
   </listener>
  </listeners>
  

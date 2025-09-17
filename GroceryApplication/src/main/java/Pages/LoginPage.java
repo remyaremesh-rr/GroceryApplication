@@ -10,41 +10,42 @@ import utilities.PageUtility;
 import utilities.WaitUtility;
 
 public class LoginPage {
-	public WebDriver driver;
-	PageUtility pageutility = new PageUtility();
-	WaitUtility waitutility = new WaitUtility();
+	
+	public WebDriver driver;	
+	PageUtility pageutility=new PageUtility();
+	WaitUtility waitutility=new WaitUtility();//explicit wait
 	public LoginPage(WebDriver driver) {
-		this.driver=driver;
-		PageFactory.initElements(driver, this);
+	this.driver=driver;
+	PageFactory.initElements(driver, this);//this is to refer the current class method. 
+	//PageFactory is class
 	}
-	@FindBy(xpath ="//input[@name='username']") WebElement username;
-	public LoginPage enterusername(String usernameValue) {
-		//WebElement username = driver.findElement(By.xpath("//input[@name='username']"));
-		//username.sendKeys(usernameValue);
+	
+	@FindBy(xpath = "//input[@name='username']")WebElement username;
+	public LoginPage enterUserName(String usernameValue)
+	{
 		pageutility.sendDataToElement(username, usernameValue);
-		return this;// to return
+		return this;// as login page is the current page, to refer the current class object this keyword is used
 	}
-	@FindBy(xpath ="//input[@name='password']") WebElement password;
-	public LoginPage enterpassword(String passwordValue) {
-		//WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
-		password.sendKeys(passwordValue);
-		return this;// to return
+	
+	@FindBy(xpath = "//input[@name='password']")WebElement password;
+	  public LoginPage enterPassword(String passwordValue) {
+	  pageutility.sendDataToElement(password,passwordValue);	
+	  return this;
 	}
-	@FindBy(xpath ="//button[@name='Submit']") WebElement login;
+    
+	@FindBy(xpath = "//button[text()='Sign In']")WebElement loginBtn;
 	public HomePage clickOnSignin() {
-		//WebElement login = driver.findElement(By.xpath("//button[@text()='Submit']"));
-		//login.click();
-		waitutility.waitUntilClickable(driver, login);
-		pageutility.clickElement(login);
-		return new HomePage(driver);//to return object of HomePage
-		
+		waitutility.waitUntilClickable(driver, loginBtn); //explicit wait
+		pageutility.clickElement(loginBtn);
+		return new HomePage(driver);// Home page is another class, created object for Homepage
+	
 	}
+	
+	////assertion web element and method
 	@FindBy(xpath = "//div[@class='alert alert-danger alert-dismissible']")WebElement loginAlert;
-	public boolean isLoginAlertDisplayed() {
-		
+	public boolean isLoginAlertDisplayed()
+	{
 		return loginAlert.isDisplayed();
 	}
 	
-		
-
 }
