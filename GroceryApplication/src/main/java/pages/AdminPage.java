@@ -13,7 +13,7 @@ import utilities.WaitUtility;
 public class AdminPage {
 	public WebDriver driver;
 	PageUtility pageutility=new PageUtility();
-	WaitUtility waitut=new WaitUtility();
+	WaitUtility waitutility=new WaitUtility();
 	
    public AdminPage(WebDriver driver) {
 	  this.driver=driver; 

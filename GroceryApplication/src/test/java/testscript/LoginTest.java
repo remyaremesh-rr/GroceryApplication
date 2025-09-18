@@ -10,7 +10,7 @@ import pages.HomePage;
 import pages.LoginPage;
 import utilities.ExcelUtility;
 
-public class Logintest extends TestNgBase {
+public class LoginTest extends TestNgBase {
 	
 	// retry is applied here as this is a flaky test case
     HomePage homepage; // object declaration, space wont create here

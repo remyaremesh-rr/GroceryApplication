@@ -4,12 +4,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.PageUtility;
+import utilities.WaitUtility;
 
 public class ManageNewsPage {
 	
 		public WebDriver driver;
 		PageUtility pageutility=new PageUtility();
-		
+		WaitUtility waitutility=new WaitUtility();
 	   public ManageNewsPage(WebDriver driver)
 	   {
 		  this.driver=driver; 
