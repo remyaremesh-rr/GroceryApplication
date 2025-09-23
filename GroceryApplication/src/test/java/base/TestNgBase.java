@@ -56,11 +56,11 @@ public class TestNgBase {
 	  	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 	  	}
 
-//	// we need run this this after each test case
-//	// alwaysRun = true : if the test script fails in the middle of the test case.
-//  // to ensure the method following is executed before test case is terminated
-//	//iTestResult= test case pass/fail
-//	//ITestResult: in built interface provided by testng. which includes all the date of one testcase
+	// we need run this this after each test case
+	// alwaysRun = true : if the test script fails in the middle of the test case.
+  // to ensure the method following is executed before test case is terminated
+	//iTestResult= test case pass/fail
+	//ITestResult: in built interface provided by testng. which includes all the date of one testcase
 
 	@AfterMethod(alwaysRun = true)
 		public void driverQuit(ITestResult iTestResult) throws IOException
