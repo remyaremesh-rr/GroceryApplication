@@ -1,6 +1,7 @@
 package utilities;
 
 import java.io.FileInputStream;
+import constant.Constants;
 
 import java.io.IOException;
 
@@ -11,6 +12,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+
 
 
 public class ExcelUtility {
@@ -30,7 +33,7 @@ public class ExcelUtility {
 
 		{
 
-		f=new FileInputStream("C:\\Users\\Remya\\git\\GroceryApplication\\GroceryApplication\\src\\test\\resources\\TestData.xlsx");
+		f=new FileInputStream(Constants.TESTDATAFILE);
 
 
 
@@ -62,7 +65,7 @@ public class ExcelUtility {
 
 
 
-		f=new FileInputStream("C:\\Users\\Remya\\git\\GroceryApplication\\GroceryApplication\\src\\test\\resources\\TestData.xlsx");
+		f=new FileInputStream(Constants.TESTDATAFILE);
 
 		
 
