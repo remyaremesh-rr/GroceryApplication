@@ -10,7 +10,7 @@ public class ManageNewsPage {
 	
 		public WebDriver driver;
 		PageUtility pageutility=new PageUtility();
-		WaitUtility waitutility=new WaitUtility();
+		WaitUtility waitutility=new WaitUtility();//explicit wait
 	   public ManageNewsPage(WebDriver driver)
 	   {
 		  this.driver=driver; 
@@ -34,6 +34,7 @@ public class ManageNewsPage {
 	  @FindBy(xpath = "//button[@name='create']")WebElement addnewssavebtn;
 	  public ManageNewsPage clickAddNewsSavebtn()
 	  {
+		  waitutility.waitUntilClickable(driver, addnewssavebtn); //explicit wait
 		pageutility.clickElement(addnewssavebtn);
 		 return this;
 	  } 

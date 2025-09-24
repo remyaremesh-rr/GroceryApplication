@@ -13,7 +13,7 @@ import utilities.WaitUtility;
 public class AdminPage {
 	public WebDriver driver;
 	PageUtility pageutility=new PageUtility();
-	WaitUtility waitutility=new WaitUtility();
+	WaitUtility waitutility=new WaitUtility();//explicit wait
 	
    public AdminPage(WebDriver driver) {
 	  this.driver=driver; 
@@ -24,8 +24,10 @@ public class AdminPage {
    @FindBy(xpath = "//a[@class='btn btn-rounded btn-danger']")WebElement newbutton;
    public AdminPage clickNewButton()
    {
+	   waitutility.waitUntilClickable(driver, newbutton); //explicit wait
 	pageutility.clickElement(newbutton);
-	return this;
+	
+	return new AdminPage(driver);
    }
    
    @FindBy(xpath = "//input[@id='username']") WebElement username_input;
