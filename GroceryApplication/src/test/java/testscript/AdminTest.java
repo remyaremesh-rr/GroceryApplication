@@ -21,7 +21,7 @@ public class AdminTest extends TestNgBase{
 		LoginPage loginpage=new LoginPage(driver);
 		loginpage.enterUserName(usernameValue).enterPassword(passwordValue);
 		homepage=loginpage.clickOnSignin();
-		adminpage=homepage.clickAdminMoreifo();// this method is moved to homepage
+		adminpage=homepage.clickAdminMoreInfo();// this method is moved to homepage
 		FakerUtility fakerUtility = new FakerUtility();
 		String randomname=fakerUtility.createRandomUserName();
 		String randompassword=fakerUtility.createRandomPassword();
