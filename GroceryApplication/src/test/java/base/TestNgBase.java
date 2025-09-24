@@ -55,6 +55,11 @@ public class TestNgBase {
 	  	driver.manage().window().maximize(); 
 	  	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 	  	}
+		@AfterMethod
+		public void quitAndClose() {
+			//driver.close();
+			//driver.quit();
+		}
 
 	// we need run this this after each test case
 	// alwaysRun = true : if the test script fails in the middle of the test case.
